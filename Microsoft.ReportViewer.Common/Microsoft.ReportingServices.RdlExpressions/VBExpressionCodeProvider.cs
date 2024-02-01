@@ -32,15 +32,20 @@ namespace Microsoft.ReportingServices.RdlExpressions
 			var roslynTree = SyntaxFactory.ParseSyntaxTree(writer.ToString(), null, "");
 			var roslynOptions = new VisualBasicCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
 			var roslynReferences = new List<MetadataReference>();
-			CheckAndAddReference(roslynReferences, System.Reflection.Assembly.Load("System.Private.CoreLib").Location);
-			CheckAndAddReference(roslynReferences, System.Reflection.Assembly.Load("Microsoft.VisualBasic.Core").Location);
-			CheckAndAddReference(roslynReferences, System.Reflection.Assembly.Load("System.Runtime").Location);
-			CheckAndAddReference(roslynReferences, System.Reflection.Assembly.Load("System.Text.RegularExpressions").Location);
-			foreach (var assembly in options.ReferencedAssemblies)
+
+			string[] assemblies = 
 			{
-				if (assembly == "System.dll") continue;
-				CheckAndAddReference(roslynReferences, assembly);
-			}
+				"System.Private.CoreLib",
+				"System",
+				"System.Runtime",
+				"System.Text.RegularExpressions",
+				"Microsoft.VisualBasic.Core",
+				"Microsoft.ReportViewer.ProcessingObjectModel",
+			};
+
+			foreach (string assembly in assemblies)
+				roslynReferences.Add(MetadataReference.CreateFromFile(Path.Combine(ExternalAssemblies.Directory, $"{assembly}.dll")));
+
 			var roslynCompilation = VisualBasicCompilation.Create(Path.GetFileNameWithoutExtension(options.OutputAssembly), new[] { roslynTree }, options: roslynOptions, references: roslynReferences);
 			var roslynAssembly = new MemoryStream();
 			var result = roslynCompilation.Emit(roslynAssembly);
