@@ -7,6 +7,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace Microsoft.ReportingServices.RdlExpressions
 {
@@ -43,8 +44,15 @@ namespace Microsoft.ReportingServices.RdlExpressions
 				"Microsoft.ReportViewer.ProcessingObjectModel",
 			};
 
-			foreach (string assembly in assemblies)
-				roslynReferences.Add(MetadataReference.CreateFromFile(Path.Combine(ExternalAssemblies.Directory, $"{assembly}.dll")));
+			foreach (string assemblyName in assemblies)
+			{
+				Assembly assembly = Assembly.Load(assemblyName);
+
+				string location = assembly.Location == ""
+					? Path.Combine(ExternalAssemblies.Directory, $"{assemblyName}.dll")
+					: assembly.Location;
+				roslynReferences.Add(MetadataReference.CreateFromFile(location));
+			}
 
 			var roslynCompilation = VisualBasicCompilation.Create(Path.GetFileNameWithoutExtension(options.OutputAssembly), new[] { roslynTree }, options: roslynOptions, references: roslynReferences);
 			var roslynAssembly = new MemoryStream();
