@@ -7,7 +7,7 @@
   <PropertyGroup>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <RootNamespace></RootNamespace>
-    <PackageId>ReportViewerCore.WinForms</PackageId>
+    <PackageId>Atbas.ReportViewerCore.WinForms</PackageId>
     <Authors>Microsoft, lkosson, ATBAS</Authors>
     <PackageProjectUrl>https://github.com/ATBAS-DE/ReportViewerCore</PackageProjectUrl>
     <Version>15.1.20</Version>
