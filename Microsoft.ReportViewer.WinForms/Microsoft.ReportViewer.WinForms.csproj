@@ -8,9 +8,9 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <RootNamespace></RootNamespace>
     <PackageId>ReportViewerCore.WinForms</PackageId>
-    <Authors>Microsoft, lkosson</Authors>
-    <PackageProjectUrl>https://github.com/lkosson/reportviewercore</PackageProjectUrl>
-    <Version>15.1.19</Version>
+    <Authors>Microsoft, lkosson, ATBAS</Authors>
+    <PackageProjectUrl>https://github.com/ATBAS-DE/ReportViewerCore</PackageProjectUrl>
+    <Version>15.1.20</Version>
     <Company>Microsoft</Company>
     <Product>ReportViewer Core</Product>
     <Description>SQL Server Reporting Services WinForms ReportViewer decompiled and recompiled for .NET Core. Based on ReportViewer 15.0.1404.0</Description>
@@ -60,7 +60,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.ServiceModel.Http" Version="4.8.1" />
+    <PackageReference Include="System.ServiceModel.Http" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.ReportViewer.Common\Microsoft.ReportViewer.Common.csproj" />
